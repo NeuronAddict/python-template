@@ -1,0 +1,12 @@
+__pycache__
+Dockerfile
+dev-requirements.*
+requirements.in
+venv/
+*.sqlite3
+.gitignore
+.secret/
+docker-compose.yml
+Jenkinsfile
+.gitlab-ci.yaml
+.gitlab-ci.yml
