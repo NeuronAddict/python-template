@@ -64,11 +64,13 @@ https://pypi.org/project/pip-tools/
 Ignore useless files with a dockerignore to not include they in your container :
  
 - Dockerfile # can leak info
-- README.md # useless
+- .git (can be very big and leak a lot of info)
+- *.md # useless
 - venv/ (may be big!)
 - doc (should not be in a container)
 - *.in
 - .gitlab-ci.yaml, Jenkinsfile (can leak info)
+- .dockerignore itself to not leak ignored containers
 
 ### One commit, one build
 
