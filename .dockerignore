@@ -10,3 +10,7 @@ docker-compose.yml
 Jenkinsfile
 .gitlab-ci.yaml
 .gitlab-ci.yml
+.git/
+.idea/
+*.md
+.dockerignore
