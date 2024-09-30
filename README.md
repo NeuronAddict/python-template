@@ -3,9 +3,9 @@
 When you build a python container with a requirement.txt without explicit versions, it sometimes fail (too often!).
 
 Why? This is because without versions in this file, your build use the last versions of all dependencies.
-This work at a moment (when develop) by can fail when YOU build code.
+This work at a moment (when develop) but can fail when YOU build code.
 
-To avoid this, this template help us to provides a unique build for a commit.
+To avoid that, this template help us to provides a unique build for a commit.
 
 - Docker rootless container for python
 - Include only python dependencies
@@ -14,10 +14,10 @@ To avoid this, this template help us to provides a unique build for a commit.
 
 ### set python dependencies
 
-- write needed dev dependencies in dev-requirements.in. There are not deployed on final container (like pytest).
-- write run depdendencies (packages you need to run in production) in requirements.in. Add versions only if needed.
+- Add needed dev dependencies in dev-requirements.in. There are not deployed on final container (like pytest).
+- Add run dedendencies (packages you need to run in production) in requirements.in. Add versions only if needed.
 
-Exemple :
+#### Exemple
 
 requirements.in
 ```
@@ -37,9 +37,9 @@ $ pip install -r dev-requirements.in
 $ pip install -r requirements.txt
 ```
 
-Commit all requirements files (in and txt). Like this your commit give a unique build.
+Commit all requirements files (in and txt). Like this your commit give a unique (and reproducible!) build.
 
-Now all *.txt files has unique versions and your commit work now and anytime in the future.
+Now all *.txt files has unique versions and your commit work now AND anytime in the future.
 
 ### update packages
 
@@ -57,6 +57,8 @@ $ git commit
 
 https://pypi.org/project/pip-tools/
 
+This create a new commit with all new versions. You can make a rollback if needed.
+
 ## Good practices
 
 ### Exclude files from docker container
@@ -69,6 +71,7 @@ Ignore useless files with a dockerignore to not include they in your container :
 - venv/ (may be big!)
 - doc (should not be in a container)
 - *.in
+- dev-requirements.txt
 - .gitlab-ci.yaml, Jenkinsfile (can leak info)
 - .dockerignore itself to not leak ignored containers
 
