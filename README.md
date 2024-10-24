@@ -15,7 +15,7 @@ To avoid that, this template help us to provides a unique build for a commit.
 ### set python dependencies
 
 - Add needed dev dependencies in dev-requirements.in. There are not deployed on final container (like pytest).
-- Add run dedendencies (packages you need to run in production) in requirements.in. Add versions only if needed.
+- Add run dependencies (packages you need to run in production) in requirements.in. Add versions only if needed.
 
 #### Exemple
 
@@ -31,10 +31,12 @@ psycopg2
 $ python -m venv venv # may be python3
 $ source venv/bin/activate
 $ pip install pip-tools # only when dev-requirements.txt is void
-$ pip-compile dev-requirements.in
-$ pip-compile requirements.in
-$ pip install -r dev-requirements.in
+$ # remove your local index-url and options to not leak this on github
+$ pip-compile --no-emit-index-url --no-emit-options requirements.in
+$ # add a constraint to dev-requirements to avoid a different version on dev env
+$ pip-compile --constraint=requirements.txt --no-emit-index-url --no-emit-options dev-requirements.in 
 $ pip install -r requirements.txt
+$ pip install -r dev-requirements.txt
 ```
 
 Commit all requirements files (in and txt). Like this your commit give a unique (and reproducible!) build.
@@ -46,9 +48,11 @@ Now all *.txt files has unique versions and your commit work now AND anytime in 
 To update or add packages, simply use pip-tools :
 
 ```
-$ pip-compile --upgrade dev-requirements.in
-$ pip-compile --upgrade requirements.in
-$ # *.txt files are updated with new versions
+$ # remove your local index-url and options to not leak this on github
+$ pip-compile --upgrade --no-emit-index-url --no-emit-options requirements.in
+$ # add a constraint to dev-requirements to avoid a different version on dev env
+$ pip-compile --constraint=requirements.txt --no-emit-index-url --no-emit-options dev-requirements.in 
+$ # now *.txt files are updated with new versions
 $ pip install -r dev-requirements.txt
 $ pip install -r requirements.txt
 $ git add *
