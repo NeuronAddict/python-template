@@ -3,6 +3,7 @@ Dockerfile
 dev-requirements.*
 requirements.in
 venv/
+.venv/
 *.sqlite3
 .gitignore
 .secret/
